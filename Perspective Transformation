@@ -1,0 +1,26 @@
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+def main():
+    path = "D:\\image_processing_files\\Dataset\\"
+    imgpath = path + "4.2.01.tiff"
+    img = cv2.imread(imgpath,1)
+    img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+    
+    rows,columns,channel = img.shape
+    point1 = np.float32([[0,0],[400,0],[0,400],[400,400]])
+    point2 = np.float32([[0,0],[300,0],[0,300],[300,300]])
+    
+    print(rows,columns)
+    R = cv2.getPerspectiveTransform(point1,point2)
+    print(R)
+    output = cv2.warpPerspective(img,R,(500,500))
+    
+    plt.imshow(output)
+    plt.title("Changed image")
+    plt.xticks([])
+    plt.yticks([])
+    plt.show()
+    
+if __name__ == "__main__":
+    main()
